@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael W. Owens — Senior Commerce Architect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0d14; --surface: #111520; --border: #1e2640;
+      --accent: #4f8ef7; --accent2: #7c3aed;
+      --accent-glow: rgba(79,142,247,0.15);
+      --text: #e8eaf0; --muted: #6b7280; --tag-bg: #1a2035;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 2.5rem; background: rgba(10,13,20,0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 700; font-size: 1.05rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 2.5rem 5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -30%; right: -10%; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(79,142,247,.12) 0%, transparent 65%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -20%; left: -5%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,.08) 0%, transparent 65%); pointer-events: none; }
+    .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-label { font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: .6rem; }
+    .hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+    h1 { font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; margin-bottom: 1rem; }
+    h1 span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-subtitle { font-size: 1.15rem; color: var(--muted); max-width: 600px; margin-bottom: 2.5rem; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2.8rem; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: .75rem; padding: .35rem .85rem; border: 1px solid var(--border); border-radius: 100px; color: var(--muted); background: var(--surface); }
+    .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.8rem; border-radius: 8px; font-weight: 600; font-size: .9rem; text-decoration: none; transition: all .2s; border: none; cursor: pointer; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+    .stats-strip { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; text-align: center; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; letter-spacing: -.03em; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .2rem; }
+
+    section { padding: 5rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .6rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 3rem; }
+
+    .caps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .cap-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color .2s, transform .2s; }
+    .cap-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .cap-icon { font-size: 1.5rem; margin-bottom: .8rem; }
+    .cap-title { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+    .cap-desc { font-size: .82rem; color: var(--muted); }
+
+    .exp-timeline { display: flex; flex-direction: column; gap: 2rem; }
+    .exp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 2.2rem; position: relative; overflow: hidden; transition: border-color .2s; }
+    .exp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--accent), var(--accent2)); }
+    .exp-card:hover { border-color: rgba(79,142,247,.4); }
+    .exp-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; margin-bottom: .4rem; }
+    .exp-company { font-size: 1.1rem; font-weight: 700; }
+    .exp-period { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--accent); padding: .25rem .7rem; background: var(--accent-glow); border-radius: 100px; }
+    .exp-role { color: var(--muted); font-size: .9rem; margin-bottom: 1.1rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .exp-bullets li { font-size: .87rem; color: var(--muted); padding-left: 1.2rem; position: relative; }
+    .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+
+    .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+    .stack-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.6rem; }
+    .stack-category { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .85rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag { font-size: .75rem; padding: .28rem .7rem; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: border-color .2s, transform .2s; }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-title { font-weight: 700; font-size: .95rem; margin-bottom: .5rem; }
+    .project-desc { font-size: .82rem; color: var(--muted); }
+
+    .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .contact-inner h2 { margin-bottom: 1rem; }
+    .contact-sub { color: var(--muted); margin-bottom: 2.5rem; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .contact-link { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 500; transition: border-color .2s, background .2s; }
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-glow); }
+
+    footer { padding: 2rem 2.5rem; text-align: center; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MWO</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="about">
+  <div class="hero-inner">
+    <div class="hero-label">Senior Commerce Architect</div>
+    <h1>Michael W.<br><span>Owens</span></h1>
+    <p class="hero-subtitle">Enterprise e-commerce architect with 10+ years building and scaling digital commerce platforms that power multi-billion-dollar revenue streams. Engineering leader, hands-on builder, and strategic systems thinker.</p>
+    <div class="hero-badges">
+      <span class="badge">Next.js</span><span class="badge">React</span><span class="badge">GraphQL</span>
+      <span class="badge">Azure</span><span class="badge">Optimizely</span>
+      <span class="badge">Salesforce Commerce Cloud</span><span class="badge">Headless Commerce</span><span class="badge">Composable Architecture</span>
+    </div>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">↗ Get in Touch</a>
+      <a href="#experience" class="btn btn-ghost">View Experience</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+    <div><div class="stat-num">$2.5B+</div><div class="stat-label">Revenue Supported</div></div>
+    <div><div class="stat-num">100K+</div><div class="stat-label">Orders / Month</div></div>
+    <div><div class="stat-num">$130M</div><div class="stat-label">Revenue Scaled from $0</div></div>
+    <div><div class="stat-num">13+</div><div class="stat-label">Engineers Led</div></div>
+  </div>
+</div>
+
+<section id="capabilities">
+  <div class="section-inner">
+    <div class="section-label">// What I Do</div>
+    <h2>Core Capabilities</h2>
+    <div class="caps-grid">
+      <div class="cap-card"><div class="cap-icon">🏗️</div><div class="cap-title">Commerce Architecture</div><div class="cap-desc">Enterprise e-commerce platform design, roadmapping, and cross-system integration spanning CRM, OMS, ERP, and payment gateways.</div></div>
+      <div class="cap-card"><div class="cap-icon">⚡</div><div class="cap-title">Headless & Composable Commerce</div><div class="cap-desc">Next.js + GraphQL-driven headless implementations with modular data layers and frontend repo structures built for scale.</div></div>
+      <div class="cap-card"><div class="cap-icon">💻</div><div class="cap-title">Hands-On Engineering</div><div class="cap-desc">Deep roots in JavaScript, React, Next.js, GraphQL, and Node — I lead from the front and stay close to the code.</div></div>
+      <div class="cap-card"><div class="cap-icon">🔍</div><div class="cap-title">Search & Performance</div><div class="cap-desc">Search modernization (SOLR, Lucidworks, Bloomreach), performance engineering, observability pipelines, and caching strategies.</div></div>
+      <div class="cap-card"><div class="cap-icon">☁️</div><div class="cap-title">Cloud & DevOps</div><div class="cap-desc">Azure-first architecture including Azure Functions, CosmosDB, Log Analytics, and CI/CD pipeline alignment.</div></div>
+      <div class="cap-card"><div class="cap-icon">🎯</div><div class="cap-title">Engineering Leadership</div><div class="cap-desc">Building and coaching high-performing teams, setting architectural standards, and bridging business and technology.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">// Career</div>
+    <h2>Professional Experience</h2>
+    <div class="exp-timeline">
+      <div class="exp-card">
+        <div class="exp-top"><div class="exp-company">Ferguson Enterprise / Ferguson.com / Build.com</div><div class="exp-period">Oct 2022 – Present</div></div>
+        <div class="exp-role">Senior Manager, Information Technology</div>
+        <ul class="exp-bullets">
+          <li>Lead platform engineering teams supporting $2.5B+ in annual e-commerce revenue and 100K+ orders/month.</li>
+          <li>Architected solution designs across Salesforce Commerce Cloud, OMS, ERP, pricing, and promotions.</li>
+          <li>Established post-SFCC modernization architecture direction — composability, performance, and headless-first.</li>
+          <li>Drove future headless adoption strategy using Next.js + GraphQL with defined data layer and frontend structure.</li>
+          <li>Led search stack evolution: SOLR vs. Lucidworks performance strategy and relevance tuning.</li>
+          <li>Reduced page load and cart/checkout times through caching, refactoring, and controller redesigns.</li>
+          <li>Introduced architectural governance and roadmap prioritization across product, UX, and dev leadership.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top"><div class="exp-company">HM Wallace / Supply.com / ProStoreUSA.com</div><div class="exp-period">Mar 2015 – Oct 2022</div></div>
+        <div class="exp-role">Manager of Engineering & Principal Commerce Architect</div>
+        <ul class="exp-bullets">
+          <li>Led the company's first e-commerce frontend, scaling from $0 to $130M in revenue.</li>
+          <li>Managed cross-functional teams of frontend, API, and platform engineers with a strong UX focus.</li>
+          <li>Led migration from a legacy Microsoft stack to a modern headless architecture using React and GraphQL.</li>
+          <li>Directed development of a custom CMS enabling frontend teams to ship faster with less coupling.</li>
+          <li>Partnered with business stakeholders to align frontend investments with revenue growth.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top"><div class="exp-company">HM Wallace</div><div class="exp-period">2008 – 2015</div></div>
+        <div class="exp-role">Lead Commerce Architect / Engineer</div>
+        <ul class="exp-bullets">
+          <li>Laid the technical foundation for what would become a multi-brand digital commerce operation.</li>
+          <li>Hands-on architecture and engineering across early-stage e-commerce platform development.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="section-inner">
+    <div class="section-label">// Tools & Technology</div>
+    <h2>Tech Stack</h2>
+    <div class="stack-grid">
+      <div class="stack-card"><div class="stack-category">Commerce</div><div class="tag-row"><span class="tag">Salesforce Commerce Cloud</span><span class="tag">Optimizely</span><span class="tag">Demandware</span><span class="tag">Shopify</span><span class="tag">BigCommerce</span></div></div>
+      <div class="stack-card"><div class="stack-category">Frontend</div><div class="tag-row"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">HTML / CSS</span></div></div>
+      <div class="stack-card"><div class="stack-category">APIs & Services</div><div class="tag-row"><span class="tag">GraphQL</span><span class="tag">REST</span><span class="tag">Microservices</span><span class="tag">Azure Functions</span></div></div>
+      <div class="stack-card"><div class="stack-category">Search</div><div class="tag-row"><span class="tag">SOLR</span><span class="tag">Lucidworks</span><span class="tag">Bloomreach</span><span class="tag">GroupBy</span><span class="tag">Endeca</span></div></div>
+      <div class="stack-card"><div class="stack-category">Cloud & Data</div><div class="tag-row"><span class="tag">Azure</span><span class="tag">CosmosDB</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">AWS</span></div></div>
+      <div class="stack-card"><div class="stack-category">Monitoring & Observability</div><div class="tag-row"><span class="tag">Datadog</span><span class="tag">New Relic</span><span class="tag">Azure Log Analytics</span><span class="tag">mPulse</span><span class="tag">GA4</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">// Signature Work</div>
+    <h2>Featured Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card"><div class="project-title">⚙️ Salesforce Commerce Cloud Migration</div><div class="project-desc">Architected and led the enterprise migration to SFCC, establishing a new platform direction focused on composability and performance.</div></div>
+      <div class="project-card"><div class="project-title">🛒 Unified Cart & Checkout Architecture</div><div class="project-desc">Designed a high-performance cart/checkout system optimized for large carts, high order volume, and complex pricing/promotions flows.</div></div>
+      <div class="project-card"><div class="project-title">🌐 Multi-Site Expansion Strategy</div><div class="project-desc">Defined architecture for multi-brand digital expansion including PollardWater.com modernization and shared component strategy.</div></div>
+      <div class="project-card"><div class="project-title">🔗 GraphQL Platform for Headless Web</div><div class="project-desc">Drove the full data layer and API architecture for a Next.js headless commerce frontend — from schema design to modularized structure.</div></div>
+      <div class="project-card"><div class="project-title">🔍 Search Modernization on Azure</div><div class="project-desc">Rebuilt the search stack using SOLR on Azure with indexing strategy, relevance tuning, and AHRI data integration.</div></div>
+      <div class="project-card"><div class="project-title">📊 Performance & Observability Pipelines</div><div class="project-desc">Built end-to-end observability dashboards using Datadog, New Relic, mPulse, and Azure Log Analytics for real-time visibility.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-label">// Let's Connect</div>
+      <h2>Get in Touch</h2>
+      <p class="contact-sub">Open to conversations about commerce architecture, engineering leadership, and building the future of digital platforms.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:bigguy.owens@gmail.com">✉️ bigguy.owens@gmail.com</a>
+        <a class="contact-link" href="tel:4048258233">📞 (404) 825-8233</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/mowens1972/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://github.com/bigguyowens" target="_blank">🐙 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Michael W. Owens — Built for GitHub Pages</p>
+</footer>
+
+</body>
+</html>
